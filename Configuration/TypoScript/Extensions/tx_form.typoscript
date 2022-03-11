@@ -1,0 +1,8 @@
+// Typo3 Core: Tx_Forms
+plugin.tx_form.settings.yamlConfigurations {
+    100 = EXT:user_account_ext/Configuration/Yaml/CustomFormSetup.yaml
+}
+
+module.tx_form.settings.yamlConfigurations {
+    100 = EXT:user_account_ext/Configuration/Yaml/CustomFormSetup.yaml
+}

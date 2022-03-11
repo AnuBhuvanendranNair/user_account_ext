@@ -1,0 +1,30 @@
+TYPO3:
+  CMS:
+    Form:
+      persistenceManager:
+        allowedFileMounts:
+          10: 1:/form_definitions/
+        allowSaveToExtensionPaths: true
+        allowDeleteFromExtensionPaths: true
+        allowedExtensionPaths:
+          200: EXT:user_account_ext/Configuration/Yaml/Forms/
+      prototypes:
+        #User registration form
+        userregistration:
+          formElementsDefinition:
+          finishersDefinition:
+            SaveToDatabase:
+              implementationClassName: 'TYPO3\CMS\Form\Domain\Finishers\SaveToDatabaseFinisher'
+              options:
+                table: 'fe_users'
+                mode: 'insert'
+                whereClause: []
+                databaseColumnMappings:
+                  pid:
+                    value: 0
+                  hidden:
+                    value: 1
+                  tstamp:
+                    value: '{__currentTimestamp}'
+                  crdate:
+                    value: '{__currentTimestamp}'
