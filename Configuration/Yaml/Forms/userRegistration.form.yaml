@@ -7,31 +7,44 @@ label: 'User Registration'
 prototypeName: userregistration
 finishers:
   -
-      options:
-        table: fe_users
-        mode: insert
-        databaseColumnMappings:
-          pid:
-            value: 0
-          disable:
-            value: 1
-          email:
-            value: '{emailaddress}'
-          username:
-            value: '{username}'
-          password:
-            value: '{password}'
-          title:
-            value: '{gender}'
-          first_name:
-            value: '{firstname}'
-          last_name:
-            value: '{lastname}'
-          date_of_birth:
-            value: '{dateofbirth}'
-          place_of_birth:
-            value: '{placeofbirth}'
-      identifier: SaveToDatabase
+    options:
+      table: fe_users
+      mode: insert
+      databaseColumnMappings:
+        pid:
+          value: 0
+        disable:
+          value: 1
+        email:
+          value: '{emailaddress}'
+        username:
+          value: '{username}'
+        password:
+          value: '{password}'
+        title:
+          value: '{gender}'
+        first_name:
+          value: '{firstname}'
+        last_name:
+          value: '{lastname}'
+        date_of_birth:
+          value: '{dateofbirth}'
+        place_of_birth:
+          value: '{placeofbirth}'
+    identifier: SaveToDatabase
+  -
+    options:
+      message: 'Thank you. Please check your inbox for completing account creation.'
+      contentElementUid: ''
+    identifier: Confirmation
+  -
+    identifier: DoubleOptIn
+    options:
+      firstnameIdentifier: firstname
+      lastnameIdentifier: lastname
+      subject: 'User registration'
+      senderName: no-reply
+      senderEmail: no-reply@example.com
 renderables:
   -
     renderingOptions:
@@ -129,14 +142,14 @@ renderables:
                   maximum: '2100-01-01'
                 identifier: DateRange
           -
-            defaultValue: ''
             properties:
               fluidAdditionalAttributes:
                 required: required
               prependOptionLabel: 'please choose an option'
+            defaultValue: ''
             type: SingleSelectWithCountries
             identifier: placeofbirth
-            label: Country of birth
+            label: 'Country of birth'
             validators:
               -
                 identifier: NotEmpty
