@@ -19,6 +19,8 @@ TYPO3:
                 templateName: 'SingleSelect'
         #User registration form
         userregistration:
+          __inheritances:
+            10: 'TYPO3.CMS.Form.prototypes.standard'
           finishersDefinition:
             SaveToDatabase:
               implementationClassName: 'TYPO3\CMS\Form\Domain\Finishers\SaveToDatabaseFinisher'
@@ -29,7 +31,7 @@ TYPO3:
                 databaseColumnMappings:
                   pid:
                     value: 0
-                  hidden:
+                  disable:
                     value: 1
                   tstamp:
                     value: '{__currentTimestamp}'
