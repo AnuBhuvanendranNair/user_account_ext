@@ -1,0 +1,115 @@
+
+renderingOptions:
+  submitButtonLabel: Submit
+type: Form
+identifier: userRegistration
+label: 'User Registration'
+prototypeName: standard
+renderables:
+  -
+    renderingOptions:
+      previousButtonLabel: 'Previous step'
+      nextButtonLabel: 'Next step'
+    type: Page
+    identifier: page-1
+    label: Step
+    renderables:
+      -
+        type: Fieldset
+        identifier: fieldset-1
+        label: Fieldset
+        renderables:
+          -
+            defaultValue: ''
+            type: Email
+            identifier: email-1
+            label: 'Email address'
+            properties:
+              fluidAdditionalAttributes:
+                placeholder: mail@example.com
+                required: required
+            validators:
+              -
+                identifier: EmailAddress
+              -
+                identifier: NotEmpty
+          -
+            defaultValue: ''
+            type: Text
+            identifier: text-1
+            label: Username
+            properties:
+              fluidAdditionalAttributes:
+                required: required
+            validators:
+              -
+                identifier: NotEmpty
+          -
+            defaultValue: ''
+            type: Password
+            identifier: password-1
+            label: Password
+            properties:
+              fluidAdditionalAttributes:
+                required: required
+            validators:
+              -
+                identifier: NotEmpty
+      -
+        type: Fieldset
+        identifier: fieldset-2
+        label: Fieldset
+        renderables:
+          -
+            properties:
+              options:
+                m: Male
+                f: Female
+                o: Other
+            type: RadioButton
+            identifier: radiobutton-1
+            label: Gender
+          -
+            defaultValue: ''
+            type: Text
+            identifier: text-2
+            label: Firstname
+            properties:
+              fluidAdditionalAttributes:
+                required: required
+            validators:
+              -
+                identifier: NotEmpty
+          -
+            defaultValue: ''
+            type: Text
+            identifier: text-3
+            label: Lastname
+          -
+            defaultValue: ''
+            properties:
+              fluidAdditionalAttributes:
+                min: '2004-01-01'
+                max: '2100-01-01'
+                step: 1
+            type: Date
+            identifier: date-1
+            label: 'Date of birth'
+            validators:
+              -
+                options:
+                  minimum: '2004-01-01'
+                  maximum: '2100-01-01'
+                identifier: DateRange
+          -
+            defaultValue: ''
+            properties:
+              fluidAdditionalAttributes:
+                required: required
+              prependOptionLabel: 'please choose an option'
+            type: SingleSelectWithCountries
+            identifier: country
+            label: Country of birth
+            validators:
+              -
+                identifier: NotEmpty

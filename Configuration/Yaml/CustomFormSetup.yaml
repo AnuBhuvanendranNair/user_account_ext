@@ -9,9 +9,16 @@ TYPO3:
         allowedExtensionPaths:
           200: EXT:user_account_ext/Configuration/Yaml/Forms/
       prototypes:
+        standard:
+          formElementsDefinition:
+            SingleSelectWithCountries:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.prototypes.standard.formElementsDefinition.SingleSelect'
+              implementationClassName: 'ACME\UserAccountExt\Domain\Model\FormElements\CountrySelector'
+              renderingOptions:
+                templateName: 'SingleSelect'
         #User registration form
         userregistration:
-          formElementsDefinition:
           finishersDefinition:
             SaveToDatabase:
               implementationClassName: 'TYPO3\CMS\Form\Domain\Finishers\SaveToDatabaseFinisher'
