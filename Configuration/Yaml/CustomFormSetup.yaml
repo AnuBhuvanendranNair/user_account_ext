@@ -23,14 +23,14 @@ TYPO3:
             10: 'TYPO3.CMS.Form.prototypes.standard'
           finishersDefinition:
             SaveToDatabase:
-              implementationClassName: 'TYPO3\CMS\Form\Domain\Finishers\SaveToDatabaseFinisher'
+              implementationClassName: 'ACME\UserAccountExt\Domain\Finishers\ExtendedSaveDbFinisher'
               options:
                 table: 'fe_users'
                 mode: 'insert'
                 whereClause: []
                 databaseColumnMappings:
                   pid:
-                    value: 0
+                    value: 1
                   disable:
                     value: 1
                   tstamp:

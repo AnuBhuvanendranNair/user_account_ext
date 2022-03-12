@@ -12,7 +12,7 @@ finishers:
       mode: insert
       databaseColumnMappings:
         pid:
-          value: 0
+          value: 1
         disable:
           value: 1
         email:
