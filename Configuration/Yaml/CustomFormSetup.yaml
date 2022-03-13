@@ -4,8 +4,8 @@ TYPO3:
       persistenceManager:
         allowedFileMounts:
           10: 1:/form_definitions/
-        allowSaveToExtensionPaths: true
-        allowDeleteFromExtensionPaths: true
+        allowSaveToExtensionPaths: false
+        allowDeleteFromExtensionPaths: false
         allowedExtensionPaths:
           200: EXT:user_account_ext/Configuration/Yaml/Forms/
       prototypes:

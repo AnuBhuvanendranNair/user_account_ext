@@ -78,7 +78,7 @@ class DoubleOptInFinisher extends AbstractFinisher
         $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName('EXT:user_account_ext/Resources/Private/Template/Forms/Email/') . 'DoubleOptIn.html');
         $standaloneView->assignMultiple([
             'hash' => $hash,
-            'baseUrl' => 'http://' . $_SERVER['SERVER_NAME'] . '/',
+            'baseUrl' => 'https://' . $_SERVER['SERVER_NAME'] . '/',
             'user' => $insertedUser[0],
         ]);
         $message = $standaloneView->render();
