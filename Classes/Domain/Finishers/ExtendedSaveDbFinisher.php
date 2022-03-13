@@ -10,12 +10,11 @@ namespace ACME\UserAccountExt\Domain\Finishers;
  * (c) 2022 Anu Bhuvanendran Nair <anu93nair@gmail.com>
  */
 
+use TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Form\Domain\Finishers\SaveToDatabaseFinisher as FormSaveToDatabase;
 use TYPO3\CMS\Form\Domain\Model\FormElements\FormElementInterface;
-use TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory;
 
 /**
  * This finisher saves the data from a submitted form into
@@ -23,7 +22,7 @@ use TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory;
  * Extended from original finisher from EXT:form
  * for tweaking the md5 hashing for password.
  * Only for fe_users.
- * This can alos be extended to tweak the storage PID from typoscript settings
+ * This can also be extended to tweak the storage PID from typoscript settings
  */
 class ExtendedSaveDbFinisher extends FormSaveToDatabase
 {

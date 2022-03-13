@@ -57,7 +57,7 @@ class DoubleOptInFinisher extends AbstractFinisher
             'insertedUids'
         );
 
-        // a standalone double opt record for corresponding user is created to make sure 
+        // a standalone double opt record for corresponding user is created to make sure
         // the particular user is verified or not
         // To the mail template a hash and current user id is passed which can be used in the verification link
         $hash = bin2hex(random_bytes(30));

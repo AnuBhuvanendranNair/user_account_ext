@@ -10,26 +10,25 @@ namespace ACME\UserAccountExt\Middleware;
  * (c) 2022 Anu Bhuvanendran Nair <anu93nair@gmail.com>
  */
 
-use TYPO3\CMS\Core\Http\Stream;
-use TYPO3\CMS\Core\Http\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Symfony\Component\HttpFoundation\Cookie;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Http\ImmediateResponseException;
-use Symfony\Component\HttpFoundation\Cookie;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Core\Http\Response;
+use TYPO3\CMS\Core\Http\Stream;
 use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
+use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
+use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\ErrorController;
 use TYPO3\CMS\Frontend\Page\PageAccessFailureReasons;
-use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
-use TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 
 /**
  * This middleware class checkes whether the current url is a verification URL and proceeds
@@ -72,7 +71,7 @@ class DoubleOptInMiddleware implements MiddlewareInterface
                     $queryBuilder
                         ->update('fe_users')
                         ->where(
-                           $queryBuilder->expr()->eq('uid', $queryParams['id'])
+                            $queryBuilder->expr()->eq('uid', $queryParams['id'])
                         )
                         ->set('disable', '0')
                         ->execute();
@@ -97,18 +96,17 @@ class DoubleOptInMiddleware implements MiddlewareInterface
                     $body = new Stream('php://temp', 'rw');
                     $body->write($standaloneView->render());
                     return (new Response())
-                        ->withHeader('Refresh', '2; url='.$url )
+                        ->withHeader('Refresh', '2; url=' . $url)
                         ->withBody($body)
                         ->withStatus(200);
-                } else {
-                    // proceed with excception if no hash is present
-                    $errorResponse = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
-                        $GLOBALS['TYPO3_REQUEST'],
-                        'Not Found',
-                        ['code' => PageAccessFailureReasons::PAGE_NOT_FOUND]
-                    );
-                    throw new ImmediateResponseException($errorResponse);
                 }
+                // proceed with excception if no hash is present
+                $errorResponse = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
+                    $GLOBALS['TYPO3_REQUEST'],
+                    'Not Found',
+                    ['code' => PageAccessFailureReasons::PAGE_NOT_FOUND]
+                );
+                throw new ImmediateResponseException($errorResponse);
             }
         }
 
@@ -117,7 +115,7 @@ class DoubleOptInMiddleware implements MiddlewareInterface
 
     /**
      * Login with the current user
-     * 
+     *
      * @param TYPO3\CMS\Extbase\Domain\Model\FrontendUser $user
      */
     public function userLogin($user)
@@ -133,7 +131,7 @@ class DoubleOptInMiddleware implements MiddlewareInterface
            ->select('*')
            ->from('fe_users')
            ->where(
-              $queryBuilder->expr()->eq('uid', $user->getUid())
+               $queryBuilder->expr()->eq('uid', $user->getUid())
            )
            ->execute()->fetchAll();
         $userDataArray = $result[0];
@@ -160,7 +158,7 @@ class DoubleOptInMiddleware implements MiddlewareInterface
         // create the redirect link of login page from the given page uid
         $cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         $uri = $cObj->typolink_URL([
-            'parameter' => (int) $loginPage
+            'parameter' => (int)$loginPage
         ]);
 
         return $uri;
@@ -168,10 +166,10 @@ class DoubleOptInMiddleware implements MiddlewareInterface
 
     /**
      * Prepare a mail for administrator as configured in typoScript
-     * 
+     *
      * @param TYPO3\CMS\Extbase\Domain\Model\FrontendUser $user
      */
-    public function sendAdminMail($user) :void
+    public function sendAdminMail($user): void
     {
         // accessing ext settings
         $settings = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('user_account_ext');

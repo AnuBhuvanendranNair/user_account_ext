@@ -10,8 +10,8 @@ namespace ACME\UserAccountExt\Domain\Model\FormElements;
  * (c) 2022 Anu Bhuvanendran Nair <anu93nair@gmail.com>
  */
 
-use TYPO3\CMS\Form\Domain\Model\FormElements\GenericFormElement;
 use Symfony\Component\Intl\Countries;
+use TYPO3\CMS\Form\Domain\Model\FormElements\GenericFormElement;
 
 /**
  * This class renders a list of countries as obtained from symfony intl package
@@ -23,11 +23,11 @@ class CountrySelector extends GenericFormElement
      */
     public function initializeFormElement(): void
     {
-        //This language value can be further extended by reading from current page lanugage and 
+        //This language value can be further extended by reading from current page lanugage and
         // can be used to render names dynamically based on selected language
         $countries = Countries::getNames('en');
         $this->setProperty(
-            'options', 
+            'options',
             $countries
         );
     }
