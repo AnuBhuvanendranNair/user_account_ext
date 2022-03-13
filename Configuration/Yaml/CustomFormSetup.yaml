@@ -1,0 +1,39 @@
+TYPO3:
+  CMS:
+    Form:
+      persistenceManager:
+        allowedFileMounts:
+          10: 1:/form_definitions/
+        allowSaveToExtensionPaths: false
+        allowDeleteFromExtensionPaths: false
+        allowedExtensionPaths:
+          200: EXT:user_account_ext/Configuration/Yaml/Forms/
+      prototypes:
+        standard:
+          formElementsDefinition:
+            SingleSelectWithCountries:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.prototypes.standard.formElementsDefinition.SingleSelect'
+              implementationClassName: 'ACME\UserAccountExt\Domain\Model\FormElements\CountrySelector'
+              renderingOptions:
+                templateName: 'SingleSelect'
+        #User registration form
+        userregistration:
+          __inheritances:
+            10: 'TYPO3.CMS.Form.prototypes.standard'
+          finishersDefinition:
+            SaveToDatabase:
+              implementationClassName: 'ACME\UserAccountExt\Domain\Finishers\ExtendedSaveDbFinisher'
+              options:
+                table: 'fe_users'
+                mode: 'insert'
+                whereClause: []
+                databaseColumnMappings:
+                  pid:
+                    value: 1
+                  disable:
+                    value: 1
+                  tstamp:
+                    value: '{__currentTimestamp}'
+                  crdate:
+                    value: '{__currentTimestamp}'

@@ -1,0 +1,2 @@
+@import 'EXT:user_account_ext/Configuration/TypoScript/Setup/Extensions'
+@import 'EXT:user_account_ext/Configuration/TypoScript/Setup/Page.typoscript'

@@ -1,0 +1,54 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          finishersDefinition:
+            DoubleOptIn:
+              formEditor:
+                iconIdentifier: 't3-form-icon-finisher'
+              implementationClassName: 'ACME\UserAccountExt\Domain\Finishers\DoubleOptInFinisher'
+          formElementsDefinition:
+            Form:
+              formEditor:
+                editors:
+                  900:
+                    selectOptions:
+                      1000:
+                        value: 'DoubleOptIn'
+                        label: 'Double Opt-In'
+                propertyCollections:
+                  finishers:
+                    1000:
+                      identifier: 'DoubleOptIn'
+                      editors:
+                        __inheritances:
+                          10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
+                        100:
+                          label: 'Double Opt-In'
+                        200:
+                          identifier: 'firstnameIdentifier'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Firstname Identifier'
+                          propertyPath: 'options.firstnameIdentifier'
+                        300:
+                          identifier: 'lastnameIdentifier'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Lastname Identifier'
+                          propertyPath: 'options.lastnameIdentifier'
+                        400:
+                          identifier: 'subject'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Subject'
+                          propertyPath: 'options.subject'
+                        500:
+                          identifier: 'senderName'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Sender name'
+                          propertyPath: 'options.senderName'
+                        600:
+                          identifier: 'senderEmail'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Sender E-Mail-Address'
+                          propertyPath: 'options.senderEmail'
+

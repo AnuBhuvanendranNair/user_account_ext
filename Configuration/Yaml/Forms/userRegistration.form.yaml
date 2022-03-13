@@ -1,0 +1,155 @@
+
+renderingOptions:
+  submitButtonLabel: Submit
+type: Form
+identifier: userRegistration
+label: 'User Registration'
+prototypeName: userregistration
+finishers:
+  -
+    options:
+      table: fe_users
+      mode: insert
+      databaseColumnMappings:
+        pid:
+          value: 1
+        disable:
+          value: 1
+        email:
+          value: '{emailaddress}'
+        username:
+          value: '{username}'
+        password:
+          value: '{password}'
+        title:
+          value: '{gender}'
+        first_name:
+          value: '{firstname}'
+        last_name:
+          value: '{lastname}'
+        date_of_birth:
+          value: '{dateofbirth}'
+        place_of_birth:
+          value: '{placeofbirth}'
+    identifier: SaveToDatabase
+  -
+    options:
+      message: 'Thank you. Please check your inbox for verifying the email and completing account creation.'
+      contentElementUid: ''
+    identifier: Confirmation
+  -
+    identifier: DoubleOptIn
+    options:
+      firstnameIdentifier: firstname
+      lastnameIdentifier: lastname
+      subject: 'User registration'
+      senderName: no-reply
+      senderEmail: no-reply@example.com
+renderables:
+  -
+    renderingOptions:
+      previousButtonLabel: 'Previous step'
+      nextButtonLabel: 'Next step'
+    type: Page
+    identifier: page-1
+    label: 'User Registration'
+    renderables:
+      -
+        type: Fieldset
+        identifier: fieldset-1
+        label: ''
+        renderables:
+          -
+            defaultValue: ''
+            type: Email
+            identifier: emailaddress
+            label: 'Email address'
+            properties:
+              fluidAdditionalAttributes:
+                placeholder: mail@example.com
+                required: required
+            validators:
+              -
+                identifier: EmailAddress
+              -
+                identifier: NotEmpty
+          -
+            defaultValue: ''
+            type: Text
+            identifier: username
+            label: Username
+            properties:
+              fluidAdditionalAttributes:
+                required: required
+            validators:
+              -
+                identifier: NotEmpty
+          -
+            defaultValue: ''
+            type: Password
+            identifier: password
+            label: Password
+            properties:
+              fluidAdditionalAttributes:
+                required: required
+            validators:
+              -
+                identifier: NotEmpty
+      -
+        type: Fieldset
+        identifier: fieldset-2
+        label: 'Personal Info'
+        renderables:
+          -
+            properties:
+              options:
+                m: Male
+                f: Female
+                o: Other
+            type: RadioButton
+            identifier: gender
+            label: Gender
+          -
+            defaultValue: ''
+            type: Text
+            identifier: firstname
+            label: Firstname
+            properties:
+              fluidAdditionalAttributes:
+                required: required
+            validators:
+              -
+                identifier: NotEmpty
+          -
+            defaultValue: ''
+            type: Text
+            identifier: lastname
+            label: Lastname
+          -
+            defaultValue: ''
+            properties:
+              fluidAdditionalAttributes:
+                min: '2004-01-01'
+                max: '2100-01-01'
+                step: 1
+            type: Date
+            identifier: dateofbirth
+            label: 'Date of birth'
+            validators:
+              -
+                options:
+                  minimum: '2004-01-01'
+                  maximum: '2100-01-01'
+                identifier: DateRange
+          -
+            properties:
+              fluidAdditionalAttributes:
+                required: required
+              prependOptionLabel: 'please choose an option'
+            defaultValue: ''
+            type: SingleSelectWithCountries
+            identifier: placeofbirth
+            label: 'Country of birth'
+            validators:
+              -
+                identifier: NotEmpty

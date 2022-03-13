@@ -1,0 +1,26 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          finishersDefinition:
+            DoubleOptIn:
+              formEditor:
+                iconIdentifier: 't3-form-icon-finisher'
+              implementationClassName: 'ACME\UserAccountExt\Domain\Finishers\DoubleOptInFinisher'
+          formElementsDefinition:
+            Form:
+              formEditor:
+                editors:
+                  900:
+                    selectOptions:
+                      1000:
+                        value: 'DoubleOptIn'
+                        label: 'Double Opt-In'
+                propertyCollections:
+                  finishers:
+                    1000:
+                      identifier: 'DoubleOptIn'
+                      editors:
+                        100:
+                          label: 'Double Opt-In'

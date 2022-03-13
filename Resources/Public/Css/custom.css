@@ -1,0 +1,98 @@
+#userRegistration-2 .form-group .radio {
+    margin-left: 20px;
+}
+
+#userRegistration-2 fieldset {
+    border: 1px solid #f3dddd;
+    padding: 20px;
+}
+
+#userRegistration-2 fieldset legend {
+    border: 1px solid #f4e1e1;
+    padding: 5px;
+}
+
+.frame-type-felogin_login fieldset label {
+    display: block;
+}
+
+.frame-type-felogin_login fieldset {
+    padding-left: 55px;
+}
+
+.frame-type-felogin_login {
+    width: 600px;
+}
+
+.frame-type-felogin_login form {
+    border: 1px solid #cfe2ec;
+    padding: 50px;
+}
+
+.frame-type-felogin_login input[type=button], input[type=submit], input[type=reset]  {
+    background-color: #56baed;
+    border: none;
+    color: white;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 13px;
+    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    margin: 5px 20px 40px 20px;
+    width: 77%;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.frame-type-felogin_login input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+    background-color: #39ace7;
+}
+
+.frame-type-felogin_login input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+    -moz-transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+    -o-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.95);
+}
+
+.frame-type-felogin_login input[type=text], 
+.frame-type-felogin_login input[type=password] {
+    background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width: 85%;
+    border: 2px solid #f6f6f6;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.frame-type-felogin_login input[type=text]:focus, 
+.frame-type-felogin_login input[type=password]:focus {
+    background-color: #fff;
+    border-bottom: 2px solid #5fbae9;
+}
+
+.frame-type-felogin_login input[type=text]:placeholder, 
+.frame-type-felogin_login input[type=password]:placeholder {
+    color: #cccccc;
+}

@@ -1,0 +1,8 @@
+page = PAGE
+page.typeNum = 0
+page {
+    includeCSS {
+        userregistration_bs = EXT:user_account_ext/Resources/Public/Css/bootstrap.min.css
+        userregistration_custom = EXT:user_account_ext/Resources/Public/Css/custom.css
+    }
+}

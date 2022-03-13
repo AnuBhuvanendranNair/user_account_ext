@@ -1,0 +1,28 @@
+{
+    "name": "acme/user-account-ext",
+    "type": "typo3-cms-extension",
+    "description": "A TYPO3 extension which facilitates user registration and associated functionalities incorporating TYPO3's core fe_login extension.",
+    "authors": [
+        {
+            "name": "Anu Bhuvanendran Nair",
+            "role": "Developer"
+        }
+    ],
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "symfony/intl": "^4.3 || ^5.0 || ^6.0",
+        "typo3/cms-core": "^10.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "ACME\\UserAccountExt\\": "Classes"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/public",
+            "extension-key": "user_account_ext"
+        }
+    }
+}

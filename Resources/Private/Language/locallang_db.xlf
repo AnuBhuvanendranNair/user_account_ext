@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="EXT:user_account_ext/Resources/Private/Language/locallang_db.xlf" date="2022-03-12T00:22:56Z" product-name="user_account_ext">
+        <header/>
+        <body>
+            <trans-unit id="email">
+                <source>E-Mail-Address</source>
+            </trans-unit>
+            <trans-unit id="firstname">
+                <source>Firstname</source>
+            </trans-unit>
+            <trans-unit id="lastname">
+                <source>Lastname</source>
+            </trans-unit>
+            <trans-unit id="verified">
+                <source>Verified</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
