@@ -34,7 +34,7 @@ finishers:
     identifier: SaveToDatabase
   -
     options:
-      message: 'Thank you. Please check your inbox for completing account creation.'
+      message: 'Thank you. Please check your inbox for verifying the email and completing account creation.'
       contentElementUid: ''
     identifier: Confirmation
   -

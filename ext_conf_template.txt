@@ -1,0 +1,6 @@
+# cat=loginPid; type=int; label=PID of the login page
+loginPid = 1
+# cat=admEmailId; type=string; label=Administrator email ID where notification have to be sent when a user is created
+admEmailId = 
+# cat=admEmailSubject; type=string; label=Administrator email subject
+admEmailSubject = New account created

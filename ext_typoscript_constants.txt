@@ -1,2 +1,0 @@
-# cat=plugin.tx_user_account_ext/loginPid; type=int; label=PID of the login page
-plugin.tx_user_account_ext.loginPid = 1

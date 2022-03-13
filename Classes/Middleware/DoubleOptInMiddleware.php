@@ -10,23 +10,26 @@ namespace ACME\UserAccountExt\Middleware;
  * (c) 2022 Anu Bhuvanendran Nair <anu93nair@gmail.com>
  */
 
+use TYPO3\CMS\Core\Http\Stream;
+use TYPO3\CMS\Core\Http\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Http\ImmediateResponseException;
-use TYPO3\CMS\Core\Http\Response;
-use TYPO3\CMS\Core\Http\Stream;
 use Symfony\Component\HttpFoundation\Cookie;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Utility\MailUtility;
 use TYPO3\CMS\Frontend\Controller\ErrorController;
-use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Page\PageAccessFailureReasons;
 use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 
 /**
  * This middleware class checkes whether the current url is a verification URL and proceeds
@@ -81,6 +84,9 @@ class DoubleOptInMiddleware implements MiddlewareInterface
                     // and returns the redirect url
                     $url = $this->userLogin($user);
 
+                    // send a mail to provided admin mailID
+                    $this->sendAdminMail($user);
+
                     // compile a html view and report activation status
                     $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
                     $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName('EXT:user_account_ext/Resources/Private/Template/Forms/Email/') . 'DoubleOptInVerified.html');
@@ -116,12 +122,10 @@ class DoubleOptInMiddleware implements MiddlewareInterface
      */
     public function userLogin($user)
     {
-        // accessing typoscript settings
-        $configurationManager = GeneralUtility::makeInstance(BackendConfigurationManager::class);
-        $configurationManager->getDefaultBackendStoragePid(); 
-        $extbaseFrameworkConfiguration = $configurationManager->getTypoScriptSetup();
-        // this data is the pid of the login page. this could be changed from be constant editor
-        $loginPage = $extbaseFrameworkConfiguration['plugin.']['tx_user_account_ext.']['settings.']['loginPageId'];
+        // accessing ext settings
+        $settings = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('user_account_ext');
+        // this data is the pid of the login page. this could be changed from ext settings
+        $loginPage = $settings['loginPid'];
 
         // we need user data array for setting user session
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('fe_users');
@@ -132,7 +136,6 @@ class DoubleOptInMiddleware implements MiddlewareInterface
               $queryBuilder->expr()->eq('uid', $user->getUid())
            )
            ->execute()->fetchAll();
-
         $userDataArray = $result[0];
 
         // Authenticate the user and start user session
@@ -161,5 +164,40 @@ class DoubleOptInMiddleware implements MiddlewareInterface
         ]);
 
         return $uri;
+    }
+
+    /**
+     * Prepare a mail for administrator as configured in typoScript
+     * 
+     * @param TYPO3\CMS\Extbase\Domain\Model\FrontendUser $user
+     */
+    public function sendAdminMail($user) :void
+    {
+        // accessing ext settings
+        $settings = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('user_account_ext');
+        // this data is the details of admin. this could be changed from ext settings
+        $admEmail = $settings['admEmailId'];
+        $admEmailSub = $settings['admEmailSubject'];
+
+        // proceed if an admin email ID is specified
+        if ($admEmail) {
+            $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+            $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName('EXT:user_account_ext/Resources/Private/Template/Forms/Email/') . 'DoubleOptInReport.html');
+            $standaloneView->assignMultiple([
+                'id' => $user->getUid(),
+                'username' => $user->getUsername(),
+                'useremail' => $user->getEmail(),
+            ]);
+            $message = $standaloneView->render();
+            $mail = GeneralUtility::makeInstance(MailMessage::class);
+            /**
+             * @var $mail MailMessage
+             */
+            $mail->setFrom(MailUtility::getSystemFrom() ? MailUtility::getSystemFrom() : 'no-reply@example.com');
+            $mail->setTo($admEmail);
+            $mail->setSubject($admEmailSub);
+            $mail->setBody()->html($message);
+            $mail->send();
+        }
     }
 }
