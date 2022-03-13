@@ -52,12 +52,12 @@ renderables:
       nextButtonLabel: 'Next step'
     type: Page
     identifier: page-1
-    label: Step
+    label: 'User Registration'
     renderables:
       -
         type: Fieldset
         identifier: fieldset-1
-        label: Fieldset
+        label: ''
         renderables:
           -
             defaultValue: ''
@@ -98,7 +98,7 @@ renderables:
       -
         type: Fieldset
         identifier: fieldset-2
-        label: Fieldset
+        label: 'Personal Info'
         renderables:
           -
             properties:
