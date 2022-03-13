@@ -1,0 +1,5 @@
+plugin.tx_user_account_ext {
+    settings {
+        loginPageId = {$plugin.tx_user_account_ext.loginPid}
+    }
+}
