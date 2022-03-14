@@ -138,8 +138,8 @@ renderables:
             validators:
               -
                 options:
-                  minimum: '2004-01-01'
-                  maximum: '2100-01-01'
+                  minimum: '1950-01-01'
+                  maximum: '2004-01-01'
                 identifier: DateRange
           -
             properties:
